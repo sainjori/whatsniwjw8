@@ -2,32 +2,91 @@ package org.barry;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-public class Main {
+public class Main
+{
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+    public static void main(String[] args) throws InterruptedException
+    {
+//        System.out.println("Hello World!");
+//
+//
+//        FileFilter fileFilter = new FileFilter()
+//        {
+//            @Override
+//            public boolean accept(File pathname)
+//            {
+//                return pathname.getName().endsWith(".java");
+//            }
+//        };
+//
+//        FileFilter filter = (File file) -> file.getName().endsWith(".java");
+//
+//        File dir = new File("c:/tempo");
+//
+//        File[] files = dir.listFiles(fileFilter);
+//
+//        for (File file : files)
+//        {
+//            System.out.println(file);
+//        }
 
 
-        FileFilter fileFilter = new FileFilter()
+        Runnable runnable = new Runnable()
         {
             @Override
-            public boolean accept(File pathname)
+            public void run()
             {
-                return pathname.getName().endsWith(".java");
+                for (int i = 0; i < 3; i++)
+                {
+                    System.out.println(
+                            "Hello world from theread [" +
+                                    Thread.currentThread().getName() +
+                                    "]");
+                }
             }
         };
 
-        FileFilter filter = (File file) -> file.getName().endsWith(".java");
+        Runnable runnableLambda = () -> {
 
-        File dir = new File("c:/tempo");
+            for (int i = 0; i < 3; i++)
+            {
+                System.out.println(
+                        "Hello world from theread [" +
+                                Thread.currentThread().getName() +
+                                "]");
+            }
+        };
 
-        File[] files = dir.listFiles(fileFilter);
 
-        for (File file : files)
+        Comparator<String> stringComparator = new Comparator<String>()
         {
-            System.out.println(file);
+            @Override
+            public int compare(String o1, String o2)
+            {
+                return Integer.compare(o1.length(), o2.length());
+            }
+
+        };
+
+        Comparator<String> comparator = (String o1, String o2) -> Integer.compare(o1.length(), o2.length());
+
+        List<String> strings = Arrays.asList("****", "*********", "***");
+        Collections.sort(strings, stringComparator);
+
+        for (String s : strings)
+        {
+            System.out.println(s);
         }
+
+        Thread thread = new Thread(runnable);
+
+        thread.start();
+        thread.join();
 
 
     }
