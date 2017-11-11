@@ -20,10 +20,10 @@ public class StreamAndCellectors
         stream
                 .peek(System.out::println)
                 .filter(p1.or(p2))
-                .peek(list::add);
+                .forEach(list::add);
 
         System.out.println("Done!");
         System.out.println("Size = " + list.size());
-        //Just intermidiary operations. No execution.
+        //Temination operations
     }
 }
