@@ -25,6 +25,7 @@ public class ReductionsOptionals
                         .reduce(Integer::max);
 
         System.out.println(red);
+        //!! Optionals needed because default values cant always be defined
     }
 
 }
